@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  front:
+    build:
+      context: hls_react/
+    volumes:
+      - files:/usr/share/nginx/temp/hls
+    ports:
+      - 1935:1935
+      - 8080:8080
+    networks:
+      - app_network
+
+  back:
+    build:
+      context: spring/
+    volumes:
+      - files:/usr/share/nginx/temp/hls
+    ports:
+      - 8081:8081
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    #driver: bridge
+
+volumes:
+  files:
